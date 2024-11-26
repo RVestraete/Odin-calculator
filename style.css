@@ -7,42 +7,65 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: beige;
-    min-height: 95vh;
-    height: 100vh;
+    background-color: whitesmoke;
+    min-height: 100vh;
 }
 
 #container{
     background-color: black;
-    border: 1Opx solid gray;
+    border: 10px solid black;
     border-radius: 4px;
     display: flex;
-    justify-content: center;
-    align-items: stretch;
-    flex-direction: column;
+    flex-wrap: wrap;
+    flex: 0 1 60%;
+    min-width: 400px;
 }
 
 #display{
     background-color: lightgray;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    align-items: flex-end;
-    margin: 5xp;
+    margin-bottom: 10px;
     padding: 2px;
     font-size: 3em;
-    border: none;
-}
-
-#first-row, #second-row, #third-row, #fourth-row, #fifth-row{
-    display: flex;
-    justify-content: stretch;
+    justify-content: flex-end;
     align-items: center;
+    min-height: 80px;
 }
 
-.button{
-    margin: 1px;
-    border-radius: 2px;
+#display, #rows{
+    display: flex;
+    flex-wrap: wrap;
+    flex: 0 1 100%;
+}
+
+button{
+    border-radius: 8px;
+    border: 5px lightgray;
     font-size: 2em;
     color: black;
+    display: flex;
+    flex: 0 1 25%;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    min-height: 70px;
+}
+
+#zero{
+    flex-grow: 2;
+}
+
+.num, .dot{
+    background-color: lightskyblue;
+}
+
+.top{
+    background-color: orangered;
+}
+
+.operator{
+    background-color: gold;
+}
+
+.equal{
+    background-color: whitesmoke;
 }
