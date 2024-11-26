@@ -4,10 +4,16 @@ const operatorButtons = document.querySelectorAll(".operator");
 const dotButton = document.querySelector('#dot');
 const equalButton = document.querySelector('#equal');
 const acButton = document.querySelector('#AC');
+const plusMinus = document.querySelector('#plus-minus');
+const erase =  document.querySelector('#erase');
+
 let operatorFlag = false;
 let num2Flag = false;
 let dotFlag = false;
 let equalFlag = false;
+let resultFlag = false;
+let minusFlag = false;
+
 let num2 = "";
 let num1 = "";
 let operator = "";
@@ -15,13 +21,15 @@ let operator = "";
 numButtons.forEach((button) => {
     button.addEventListener("click", () => {
 
-        display.innerHTML += button.value;
-        dotFlag = true;
-        operatorFlag = true;
+        if(!resultFlag){
+            display.innerHTML += button.value;
+            dotFlag = true;
+            operatorFlag = true;
 
-        if (num1 != ""){
-            num2 += button.value;
-            equalFlag = true;
+            if (num2Flag){
+                num2 += button.value;
+                equalFlag = true;
+            }
         }
     })
 })
@@ -30,14 +38,13 @@ numButtons.forEach((button) => {
 operatorButtons.forEach((button) => {
     button.addEventListener("click", () => {
         if (operatorFlag && !num2Flag){
-            // valStack.push(display.innerHTML);
-            // valStack.push(button.value);
             num1 = display.innerHTML;
             operator = button.value;
             display.innerHTML += " " + button.value + " ";
             operatorFlag = false;
             dotFlag = false;
             num2Flag = true;
+            resultFlag = false;
         }
     })
 })
@@ -46,18 +53,26 @@ dotButton.addEventListener("click", () => {
     if (dotFlag){
         display.innerHTML += ".";
         dotFlag = false;
+        if (num2Flag){num2 += "."};
     }
 })
 
 equalButton.addEventListener("click",() => {
     if (equalFlag){
 
-        let result = operate(num1,num2,operator).toFixed(6);
-        display.innerHTML = result;
-        num1 = num2;
+        let result = operate(num1,num2,operator);
+        if (typeof result == "string") { 
+            display.innerHTML = result 
+        } else{
+            display.innerHTML = Math.round(result * 1e5) / 1e5;
+            num1 = num2;
+        }
         num2Flag = false;
         dotFlag = false;
         equalFlag = false;
+        resultFlag = true;
+        num2 = "";
+        operator = "";
 
     }
 
@@ -70,6 +85,30 @@ acButton.addEventListener("click",() => {
 
 })
 
+plusMinus.addEventListener("click", () => {
+    if (!num2Flag && operatorFlag){
+        if (!minusFlag){
+            display.innerHTML = "-" + display.innerHTML;
+            minusFlag = true;
+        }
+        else {
+            display.innerHTML = display.innerHTML.slice(1);
+            minusFlag = false;
+        }
+    }
+})
+
+
+// Can only erase the first number => to be updated
+erase.addEventListener("click", () => {
+
+    if (!num2Flag && !resultFlag){
+        let popElem = display.innerHTML[-1];
+        display.innerHTML = display.innerHTML.slice(0,-1);
+
+        if (popElem === "."){dotFlag = true;}
+    }
+})
 
 
 function add(num1,num2){
@@ -112,6 +151,7 @@ function init (){
     operatorFlag = false;
     dotFlag = false;
     equalFlag = false; 
+    resultFlag = false;
     num2 = "";
     operator = "";
 };

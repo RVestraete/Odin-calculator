@@ -1,5 +1,6 @@
 .body{
     display: block;
+    
 
 }
 
@@ -17,8 +18,10 @@
     border-radius: 4px;
     display: flex;
     flex-wrap: wrap;
-    flex: 0 1 60%;
+    flex: 0 1 30%;
     min-width: 400px;
+    font-family: Tahoma, Geneva, sans-serif;
+    text-decoration: none;
 }
 
 #display{
@@ -29,6 +32,7 @@
     justify-content: flex-end;
     align-items: center;
     min-height: 80px;
+   
 }
 
 #display, #rows{
@@ -39,7 +43,7 @@
 
 button{
     border-radius: 8px;
-    border: 5px lightgray;
+    border: 2px solid black;
     font-size: 2em;
     color: black;
     display: flex;
